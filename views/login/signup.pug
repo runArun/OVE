@@ -1,43 +1,30 @@
-doctype html
-html
-    head
-        title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-    body
-        block content
-.container
+extends layout
 
+block content
+.container
+    
     if hasErrors
         .alert.alert-danger
             each message in messages
                 p #{message}
 
-    form(action="/user/login", method="post")
-        div.form-group
+
+    form(action="/user/signup", method="post", class='ui form')
+        div.field
             label(for="email") Email
-            input(type="email" class="form-control" id="email" name='email' aria-describedby="emailHelp" placeholder="Enter email")
-            small(id="emailHelp" class="form-text text-muted") We'll never share your email with anyone else.
+            // for means serve the name for focus
+            input(type="email" name='email' class="form-control" id="email" placeholder="Enter email")
+            small(id="emailHelp" class="form-text text-muted") We'll never share your email with anyone else
+        div.field
+            label(for="password") Password
+            input(type="password" name='password' class="form-control" id="password" placeholder="Password")
 
-        div.form-group
-            label(for="Password") Password
-            input(type="password" class="form-control" id="Password" name='password' placeholder="Password")
-
-        div.form-group
-            label(for="ac") Access Code
-            input(type="string" class="form-control" id="ac" name='ac' placeholder="Access Code")
-            small(id="edac" class="form-text text-muted") Only End Users must fill Access Code.
-
-        //div.form-check
-            label.form-check-label
-                input(type="checkbox" class="form-check-input")
-                | Check me out
         -var cs= csrfToken;
         input(type="hidden" name="_csrf" value= cs)
-
-        button.btn.btn-primary(type="submit") Log In
-    br
+                
+        button.btn.btn-primary(type="submit") Sign Up
     p
-        | Don't have an account?
-        a(href="/user/signup")
+        | I do have an account !
+        a(href="/login")
             = '  '
-            | Sign Up Instead!
+            | Log In Now !

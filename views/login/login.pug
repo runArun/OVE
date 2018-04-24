@@ -1,36 +1,23 @@
-doctype html
-html
-    head
-        title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
-    body
-        block content
-.container
+extends layout
+
+block content
+    .container
 
     if hasErrors
         .alert.alert-danger
             each message in messages
                 p #{message}
 
-    form(action="/user/login", method="post")
-        div.form-group
+    form(action="/user/login", method="post", class='ui form')
+        div.field
             label(for="email") Email
-            input(type="email" class="form-control" id="email" name='email' aria-describedby="emailHelp" placeholder="Enter email")
-            small(id="emailHelp" class="form-text text-muted") We'll never share your email with anyone else.
+            input(type="email"  id="email" name='email' placeholder="Enter your email address")
+            small We'll never share your email with anyone else.
 
-        div.form-group
+        div.field
             label(for="Password") Password
-            input(type="password" class="form-control" id="Password" name='password' placeholder="Password")
+            input(type="password" id="Password" name='password' placeholder="Enter your password")
 
-        div.form-group
-            label(for="ac") Access Code
-            input(type="string" class="form-control" id="ac" name='ac' placeholder="Access Code")
-            small(id="edac" class="form-text text-muted") Only End Users must fill Access Code.
-
-        //div.form-check
-            label.form-check-label
-                input(type="checkbox" class="form-check-input")
-                | Check me out
         -var cs= csrfToken;
         input(type="hidden" name="_csrf" value= cs)
 
@@ -38,6 +25,6 @@ html
     br
     p
         | Don't have an account?
-        a(href="/user/signup")
+        a(href="/signup")
             = '  '
             | Sign Up Instead!

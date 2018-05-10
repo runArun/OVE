@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+
+    if hasErrors
+        div
+            each message in messages
+                button#btnDangerCenter.ui.button.red(type='button')  #{message} 
+
+    .ui.container
+        br
+        br
+        br
+        br
+        form.ui.form(action='/user/signup', method='post')
+            .field
+                label(for='email') Email
+                // for means serve the name for focus
+                input#email.form-control(type='email', name='email', placeholder='Enter email')
+                small#emailHelp.form-text.text-muted We'll never share your email with anyone else
+            .field
+                label(for='password') Password
+                input#password.form-control(type='password', name='password', placeholder='Password')
+            .field
+                label(for='username') Username
+                input#username.form-control(name='username', placeholder='Username')
+            br
+            button.ui.primary.basic.button Sign Up
+        br
+        p
+            | I do have an account !
+            a(href='/user/login')  Log In Now !

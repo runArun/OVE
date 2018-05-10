@@ -1,0 +1,28 @@
+extends ../layout
+
+block content 
+    if hasErrors
+        div
+            each message in messages
+                button#btnDangerCenter.ui.button.red(type='button')  #{message} 
+    
+                     
+    .ui.container
+        br
+        br
+        br
+        br
+        form.ui.form(action='/user/login', method='post')
+            .field
+                label(for='email') Email
+                input#email(type='email', name='email', placeholder='Enter your email address')
+                small We'll never share your email with anyone else.
+            .field
+                label(for='Password') Password
+                input#Password(type='password', name='password', placeholder='Enter your password')
+            br
+            button.ui.primary.basic.button Log  In
+        br
+        p
+            | Don't have an account?
+            a(href='/user/signup')  Sign Up Instead!

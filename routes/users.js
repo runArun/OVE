@@ -19,7 +19,7 @@ router.post('/login', passport.authenticate('local.login', {
     req.session.oldUrl = null;
     res.redirect(req.session.oldUrl);// put req before res.
   } else {
-    res.redirect('/user/projects');
+    res.redirect('/videos');
   }
 });
 
@@ -51,10 +51,7 @@ router.get('/logout', checkAuthentication, function (req, res, next) {
   req.logout();     //  be careful here , if the projects not saved
   res.redirect('/user/login');
 });
-// below projects
-router.get('/projects', function (req, res, next) {
-  res.render('user/projects');
-});
+
 
 module.exports = router;
 
@@ -64,7 +61,7 @@ function checkAuthentication(req, res, next) {//do something only if user is aut
     //req.isAuthenticated() will return true if user is logged in
     next();
   } else {
-    res.redirect("/login");
+    res.redirect("/user/login");
   }
 }
 

@@ -17,7 +17,12 @@ var command = function ( input ){
 
 module.exports.getInfo = function (req, res, next) {
 
-    var input = '/Users/ZL/Desktop/OVE/public/existedVdieos/videoplayback.mp4' //change!!!!
+    var input = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4' //change!!!!
+    
+    ffmpeg.getAvailableFilters(function (err, filters) {
+        console.log("Available filters:");
+        console.dir(filters);
+    });
 
     ffmpeg.ffprobe(input, (err, metadata) => {
         console.log(err + '============');
@@ -27,6 +32,10 @@ module.exports.getInfo = function (req, res, next) {
         res.json(metadata);
     })
 
+    command(input)
+        .videoFilter('setpts=4*PTS')
+        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/4.mp4')
+
 }
 
 
@@ -34,8 +43,7 @@ module.exports.convert = function (req, res, next) {
     
     var inputVideo = "/Users/ZL/Desktop/OVE/public/existedVdieos/new.avi";
 
-    var promise = new Promise( function(resolve, reject){
-
+  
         var command = ffmpeg(inputVideo)
 
         .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
@@ -43,9 +51,14 @@ module.exports.convert = function (req, res, next) {
         .on('error', err => console.log('An error occurred: ' + err.message))
         .on('end', () => console.log('Processing finished !'))
 
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/im-new-5.mp4')
+        .withVideoCodec('libvpx')
+        .addOptions(['-qmin 0', '-qmax 50', '-crf 5'])
+        .withVideoBitrate(1024)
+       
 
-    })
+        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/webmvideo.webm')
+
+    
 }
 
 
@@ -140,3 +153,36 @@ module.exports.addWatermark = function (req, res, next) {
         res.send('done');
         
 };
+
+
+module.exports.thumbs= function (req, res, next) {  //get cover thumbnail
+
+    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
+
+    ffmpeg(i)
+       
+        
+        .on('filenames', function (filenames) {
+            console.log('screenshots are ' + filenames.join(', '));
+        })
+        .on('end', function () {
+            console.log('screenshots were saved');
+        })
+        .on('error', function (err) {
+            console.log('an error happened: ' + err.message);
+        })
+        // take 2 screenshots at predefined timemarks and size
+        .takeScreenshots({ count: 2, timemarks: ['00:00:02.000', '6'], size: '150x100', filename: 'thumbnail-at-%s-seconds.png', }, '/Users/ZL/Desktop/OVE/public/existedWatermark');
+        //.takeScreenshots({ count: 1, timemarks: ['00:00:02.000'], size: '150x100' }, '/Users/ZL/Desktop/OVE/public/existedWatermark');
+
+    // ffmpeg('/Users/ZL/Desktop/OVE/public/existedWatermark/thumbnail-at-%s-seconds.png')
+    //     //.complexFilter(['scale=-1:-1', 'tile=2x1:margin=10:padding=4'])
+    //     .output('/Users/ZL/Desktop/OVE/public/existedWatermark/thumbnail-aaaat-%s-seconds.png')
+
+    //     .on('end', function () {
+    //         console.log('screenshots were saved');
+    //     })
+    //     .on('error', function (err) {
+    //         console.log('an error happened: ' + err.message);
+    //     })
+    }

@@ -20,18 +20,37 @@
     <script type='text/javascript'>
 
         $(document).ready(function (){
-            $('.ui.accordion')
-                .accordion()
-                ;
-        });
+            $('.ui.accordion').accordion();
 
+            // $(".player").flowplayer({
+            //     autoplay: true,
+            //     aspectRatio: "12:5",
+            //     clip: {
+            //         sources: [
+            //             { type: "application/x-mpegurl", src: "//edge.flowplayer.org/bauhaus.m3u8" },
+            //             { type: "video/mp4", src: "//edge.flowplayer.org/bauhaus.mp4" }
+            //         ],
+            //         title: "Javascript setup (autoplay)"
+            //     }
+            // });
+        });
+ 
     </script>
 
 
 <!-- video.js -->
     <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
     <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+<!-- flowplayer -->   
+   
+    <!-- 1. skin -->
+    <link rel="stylesheet" href="https://releases.flowplayer.org/7.2.6/skin/skin.css">
 
+    <!-- 2. jquery library - required for video tag based installs -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
+    <!-- 3. flowplayer -->
+    <script src="https://releases.flowplayer.org/7.2.6/flowplayer.min.js"></script>
 </head>
 
 
@@ -133,7 +152,7 @@
                     </div>
                 </div>
                 
-                <div>
+                <!-- <div>
                 
                 <video id="my-video" class="video-js" controls preload="auto" width="940" height="464" poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
                     <source src="/Users/ZL/Desktop/OVE/part-job/videos/videoplayback.mp4" type='video/mp4'>
@@ -143,8 +162,14 @@
                     </p>
                 </video>
                     
+                </div> -->
+
+                <div class="flowplayer" id="player">
+                    <video src='/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4'>
+                        
                 </div>
-        
+      
+
         </div>
             
         <!--   <div class="ui divider"></div> -->
@@ -163,6 +188,9 @@
 <!--  maybe we need footer in the future -->
 
 <footer>
+    <p>sadasdasdas</p>
+
+    <h1>大三大四的权威地位大王大王大王</h1>
 </footer>
 
 </html>

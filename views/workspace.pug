@@ -1,103 +1,116 @@
-doctype html
-html
-    head
-        // Standard Meta
-        meta(charset='utf-8')
-        meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
-        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
-        // Site Properties
-        title Workspace - Semantic
-        link(rel='stylesheet', type='text/css', href='/Users/ZL/Desktop/OVE/part-job/Semantic-UI-CSS-master/semantic.min.css')
-        script(src='http://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
-        script(src='/Users/ZL/Desktop/OVE/part-job/Semantic-UI-CSS-master/semantic.min.js')
-        script(type='text/javascript').
-            $(document).ready(function (){
-            $('.ui.accordion')
-            .accordion()
-            ;
-            });
-        // video.js
-        link(href='http://vjs.zencdn.net/6.6.3/video-js.css', rel='stylesheet')
-        script(src='http://vjs.zencdn.net/6.6.3/video.js')
-    body
-        // menu
-        .ui.inverted.segment
-            .ui.container
-                .ui.inverted.secondary.pointing.menu
-                    a.item
-                        h2
-                            | OVE - online video editing
-                    .right.menu
-                        a.ui.item
-                            h3  Lorens
-                        a.ui.item
-                            h3  Export
-                        a.ui.item
-                            h3  Logout
-        // content
-        .ui.three.column.grid
-            .row
-                .column
-                    .ui.styled.fluid.accordion
-                        .active.title
-                            i.dropdown.icon
-                            |                             Sources
-                        .active.content
-                            .ui.list
-                                .item
-                                    li Video Play Back
-                                .item NBA
-                                .item Leborn James
-                        .title
-                            i.dropdown.icon
-                            |                             New Source
-                        .content
-                            .ui.list
-                                .item Apples
-                                .item Pears
-                                .item Oranges
-                            p
-                                | There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that
-                                | they find to be compatible with their own lifestyle and desires from a companion.
-                        .title
-                            i.dropdown.icon
-                            |                             Operations
-                        .content
-                            ul.ui.list
-                                li Crop Rotate
-                                li Speed
-                                li
-                                    | Multiple video
-                                    ul
-                                        li Trim
-                                        li Combine
-                                        li Concat
-                                li Water Mark
-                                li Subtitle
-                        .title
-                            i.dropdown.icon
-                            |                             Progress
-                        .content
-                            .ui.list
-                                .item Apples
-                                .item Pears
-                                .item Oranges
-                            p
-                                | There are many breeds of dogs. Each breed varies in size and temperament. Owners often select a breed of dog that they
-                                | find to be compatible with their own lifestyle and desires from a companion.
-                div
-                    video#my-video.video-js(controls='', preload='auto', width='940', height='464', poster='MY_VIDEO_POSTER.jpg', data-setup='{}')
-                        source(src='/Users/ZL/Desktop/OVE/part-job/videos/videoplayback.mp4', type='video/mp4')
-                        p.vjs-no-js
-                            | To view this video please enable JavaScript, and consider upgrading to a web browser that
-                            a(href='http://videojs.com/html5-video-support/', target='_blank') supports HTML5 video
-            // <div class="ui divider"></div>
-            .row
+extends layout
+block content
+    // content
+    .ui.grid 
+        .row
+            .five.wide.column
+                .ui.styled.fluid.accordion
+
+
+
+
+
+                    .active.title
+                        i.dropdown.icon 
+                        |   Source
+                    .active.content
+                        h3  #{video.title}
+                    
+                    
+
+
+
+                    .title
+                        i.dropdown.icon
+                        |   Clips
+                    .content
+                        .ui.list
+                            .item(href='www.google.com')
+                                 
+                                | Apples
+                        
+
+
+
+
+
+                    
+                    .title
+                        i.dropdown.icon
+                        |                             Merge
+                   
+                    .content
+                       
+                        p
+                            | Do you want merge all clips to the final video ?
+
+
+
+
+
+
+                    .title
+                        i.dropdown.icon
+                        |   Watermark
+                    .content
+                        form(action='/upload', method='post', enctype='multipart/form-data')
+                            h4 Please submit your image as watermark here
+                            input(type='file', name='image')
+                            input(type='submit', value='submit')
+                            br
+                            small (notice: this image will automatically transform to watermark)
+                            .ui.divider
+                            p.doneornot you haven't upload your watermark
+                            image
+                    
+                    
+               
+
+                    .title
+                        i.dropdown.icon
+                        |                            Export
+                    .content
+                        
+                        p
+                            | Do you wanna merge and export it ?
+                       
+
+
+
+                    .title
+                        i.dropdown.icon
+                        |                            Your operation log
+                    .content
+                        
+                        p
+                            | Do you wanna merge and export it ?   
+                br 
+                br
+                br
+                .ui.progress.success
+                    
+                    .bar
+                        .progress
+                            
+            
+            .eleven.wide.column
+
+                .flowplayer
+                    video(src='/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4' width='950', height='464' )
+                    
+
+        .ui.divider
+        
+        
+        
+        .row
+            .eleven.wide.column
                 p
-                    | dsadasdasdasdadasdaadasdasdasdadasdasdasdadasdasdasdadasdasdasdadasadasdasdasdadasdasdasdadasdasdasdadasdasdasdadassdasdadasdasdasdadasdasdasdadasadasdasdasdadasdasdasdadasdasdasdadasdasdasdadasadasdasdasdadasdasdasdadasdasdasdadasdasdasdad
-    // maybe we need footer in the future
-    footer
-            form(action='/upload', method='post', enctype='multipart/form-data')
-                h2 单图上传
-                input(type='file', name='logo')
-                input(type='submit', value='提交')
+                    | dsadasdasdasdadasdaadasdasdasdadasdasdasdadasdasdasdadasdasdasda
+            
+            .five.wide.column
+                form(action='/upload', method='post', enctype='multipart/form-data')
+                    h2 单图上传
+                    input(type='file', name='logo')
+                    input(type='submit', value='提交')
+

@@ -1,0 +1,40 @@
+extends layout
+
+block content
+
+    // content
+    .ui.container
+
+        if !noMessages
+            .sucesss
+                p #{successMsg}
+
+        br
+        br
+        br
+        each video in videos
+            
+            .ui.relaxed.divided.items
+                .item
+                    .ui.small.image
+                        img(src='/images/images.jpeg')
+                    .content
+                        a.header #{video.title}
+                        .meta
+                            a #{video.createTime}
+                        
+                        .description
+                            |   #{video.descriptions}
+                        .extra
+                            .ui.right.floated.primary.button
+                                a(href='/workspace/'+video._id) Enter
+                        each i in video.tags   
+                            .ui.label  #{i}                          
+                
+            br
+            br
+            br
+        .row
+            button.ui.inverted.circular.segment
+                h3.ui.inverted.header
+                    a(href="/workspace") Upload New One

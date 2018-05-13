@@ -2,12 +2,23 @@ var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 
 
-var videoSchema = new schema({
+var Video = new schema({
     
-    // name 
-    // tag
-    // descriptions
-    // created time
+    title : { type: String, required: true },
+
+    videoPath : { type: String, required: true },
+   
+    tags : {  type: [String] },
+    
+    descriptions : { type: String },
+    
+    createTime : {
+        type: Date,
+        default: Date.now
+    }
     // first thumbnail   <=>  cover page
+    //'email': { type: String, required: true },
 
 });
+
+module.exports = mongoose.model('video', Video);

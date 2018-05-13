@@ -22,6 +22,9 @@ router.get('/video/trim', videoApi.trim);
 router.get('/video/addWatermark', videoApi.addWatermark);
 router.get('/video/slowMotion', videoApi.slowMotion);
 
+router.get('/video/thumbs', videoApi.thumbs);
+
+
 
 // images => watermark  processing
 router.get('/image/toWatermark', watermarkApi.toWatermark);

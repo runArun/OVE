@@ -17,7 +17,7 @@ var command = function ( input ){
 
 module.exports.getInfo = function (req, res, next) {
 
-    var input = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4' //change!!!!
+    var input = '/Users/ZL/Desktop/track/trimf.mp4' //change!!!!
     
     ffmpeg.getAvailableFilters(function (err, filters) {
         console.log("Available filters:");
@@ -33,8 +33,8 @@ module.exports.getInfo = function (req, res, next) {
     })
 
     command(input)
-        .videoFilter('setpts=4*PTS')
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/4.mp4')
+        .videoFilter('setpts=1/2*PTS') //
+        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/5.mp4')
 
 }
 
@@ -98,18 +98,18 @@ module.exports.merge = function (req, res, next) {
 
 module.exports.trim = function (req, res, next) {
 
-    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
+    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/5.mp4';
 
     ffmpeg(i)
-        .seekInput(150)     // set start time
+        .seekInput(0)     // set start time
         
-        .setDuration(150)   // 150 - 300
+        .setDuration(15)   // 150 - 300
         .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
         .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
         .on('error', err => console.log('An error occurred: ' + err.message))
         .on('end', () => console.log('Processing finished !'))
 
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/trim.mp4')
+        .save('/Users/ZL/Desktop/track/trimff.mp4')
 }
 
 module.exports.slowMotion = function (req, res, next) {

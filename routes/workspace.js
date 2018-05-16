@@ -1,9 +1,25 @@
 var express = require ('express');
 var router = express.Router();
 
+var nouislider = require("nouislider");
+
+
+
 var Video = require('../model/video');
 //  must be recognized user operation 
 // router.user('/',   isauthenticated()? )
+
+
+function slider ( slider ) {
+    noUiSlider.create(slider, {
+        start: [20, 80],
+        connect: true,
+        range: {
+            'min': 0,
+            'max': 100
+        }
+    })
+}
 
 
 router.get('/:id', function (req, res, next) {

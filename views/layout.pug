@@ -6,27 +6,26 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
     // Site Properties
     title OVE
-    script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
+
 
     link(rel='stylesheet', type='text/css', href='/stylesheets/semantic.min.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/Semantic-UI-Alert.css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/style.css')
+    link(rel='stylesheet', type='text/css', href='/stylesheets/nouislider.min.css')
+
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
 
     script(src='/javascripts/semantic.min.js')
     script(src="/javascripts/Semantic-UI-Alert.js")
     script(src="/javascripts/main.js")
     script(src="/javascripts/support.js")
-   
-    // video.js
-      link(href='http://vjs.zencdn.net/6.6.3/video-js.css', rel='stylesheet')
-      script(src='http://vjs.zencdn.net/6.0.0/video.js')
-      script(src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js")
+    script(src="/javascripts/nouislider.min.js")
+    
     // flowplayer.js
     link(rel='stylesheet', href='https://releases.flowplayer.org/7.2.6/skin/skin.css')
     script(src='https://releases.flowplayer.org/7.2.6/flowplayer.min.js')
 
   body
-
     // menu
     .ui.inverted.segment
       .ui.container
@@ -37,12 +36,14 @@ html
         .right.menu
         a.ui.item
           h3  Welcome
-        a.ui.item
-          h3  Export
+        if video
+          a.ui.item
+            h3  Export
+        // if user login
         a.ui.item
           h3 
               a(href='/user/logout') Logout
-    
+  
     block content
     
   

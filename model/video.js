@@ -12,6 +12,11 @@ var Video = new schema({
     
     descriptions : { type: String },
     
+
+    coverPage : { type: String },
+
+    thumbnails : { type: String },  
+
     createTime : {
         type: Date,
         default: Date.now

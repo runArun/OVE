@@ -7,9 +7,6 @@ block content
                 .ui.styled.fluid.accordion
 
 
-
-
-
                     .active.title
                         i.dropdown.icon 
                         |   Source
@@ -17,9 +14,6 @@ block content
                         h3  #{video.title}
                     
                     
-
-
-
                     .title
                         i.dropdown.icon
                         |   Clips
@@ -29,11 +23,6 @@ block content
                                  
                                 | Apples
                         
-
-
-
-
-
                     
                     .title
                         i.dropdown.icon
@@ -43,9 +32,6 @@ block content
                        
                         p
                             | Do you want merge all clips to the final video ?
-
-
-
 
 
 
@@ -62,9 +48,7 @@ block content
                             .ui.divider
                             p.doneornot you haven't upload your watermark
                             image
-                    
-                    
-               
+                          
 
                     .title
                         i.dropdown.icon
@@ -73,9 +57,8 @@ block content
                         
                         p
                             | Do you wanna merge and export it ?
+                            | choose format avi  mp4  flv  ..
                        
-
-
 
                     .title
                         i.dropdown.icon
@@ -83,7 +66,7 @@ block content
                     .content
                         
                         p
-                            | Do you wanna merge and export it ?   
+                            | Logs of what you have done.   
                 br 
                 br
                 br
@@ -94,10 +77,7 @@ block content
                             
             
             .eleven.wide.column
-
-                .flowplayer
-                    video(src='/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4' width='950', height='464' )
-                    
+                #player
 
         .ui.divider
         
@@ -105,12 +85,34 @@ block content
         
         .row
             .eleven.wide.column
-                p
-                    | dsadasdasdasdadasdaadasdasdasdadasdasdasdadasdasdasdadasdasdasda
+                br
+                br
+                br
+                br
+                #slider
+                   
             
             .five.wide.column
-                form(action='/upload', method='post', enctype='multipart/form-data')
-                    h2 单图上传
-                    input(type='file', name='logo')
-                    input(type='submit', value='提交')
+                .ui.top.attached.tabular.menu
+                    a.item.active(data-tab='split') Spilt
+                    a.item(data-tab='speed') Speed
+                   
+                .ui.bottom.attached.tab.segment.active(data-tab='split')
+                    div
+                        input#start
+                        
+                    br
+                    br
+                    
+                    div
+                        input#end 
+                        | &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                        button  choose speed
+                .ui.bottom.attached.tab.segment(data-tab='speed')
+                    select.ui.dropdown
+                        option(value="0") Slow           
+                        option(value="1") Normal            
+                        option(value="2") Fast            
+                    button confirm 
+
 

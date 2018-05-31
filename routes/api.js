@@ -23,6 +23,7 @@ router.get('/video/addWatermark', videoApi.addWatermark);
 router.get('/video/slowMotion', videoApi.slowMotion);
 
 router.get('/video/thumbs', videoApi.thumbs);
+router.get('/video/thumbsP', videoApi.thumbsP);
 
 
 

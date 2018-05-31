@@ -1,55 +1,43 @@
 var express = require ('express');
 var router = express.Router();
 
-var nouislider = require("nouislider");
-
-
-
 var Video = require('../model/video');
+var videoP = require('../APIs/video.process.controller.js')
 //  must be recognized user operation 
 // router.user('/',   isauthenticated()? )
 
-
-function slider ( slider ) {
-    noUiSlider.create(slider, {
-        start: [20, 80],
-        connect: true,
-        range: {
-            'min': 0,
-            'max': 100
-        }
-    })
-}
-
-
-router.get('/:id', function (req, res, next) {
+router.get('/video/:id', function (req, res, next) {
 
     var videoId = req.params.id;
-    console.log(videoId);
-
     Video.findById(videoId, function(err, video){
         if (err) {
             return res.redirect('/videos');
         }
-        //res.redirect('/workspace')
-        //res.render('workspace', { video: video });
+        
         res.render('workspace', {video : video})
+        
         console.log(videoId);
     })
 })
     
 
 
+router.get('/clip',function(req, res, next){
 
+    var path = req.query.path;
+    var st = req.query.startT;
+    var et = req.query.endT;
+    var speed = req.query.speed;
+    var name = req.query.name;
 
+    console.log('/'+path)
+    
+    
 
-
-
-
-
-
-
-
-
+    videoP.clip(path, st, et, speed, name, function(){})
+    
+    
+    
+})
 
 module.exports = router;

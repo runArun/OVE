@@ -1,64 +1,85 @@
-function drawSlider (html5Slider){
-    noUiSlider.create(html5Slider, {
-        start: [10, 30],
-        connect: true,
-        range: {
-            'min': 0,
-            'max': 40
-        }
-    })
-}
-
-
-
-
-
-
 $(document).ready(function () {
-
     // load slider
-    var html5Slider = document.getElementById('slider');
-    drawSlider( html5Slider );
-
-
-    //var videoPath = video.videoPath.substring(28);
     // load player
+    var path = $("#path").html().substring(28);
+    console.log(path)
+
     flowplayer('#player', {
         clip: {
             sources: [
 
                 {
                     type: "video/mp4",
-                    src: "/existedVdieos/1.mp4"
+                    src: path
                 }
             ]
         }
     });
 
+    // link input range with start and end
+ 
+    var api = flowplayer();
+    
 
+
+    $(document).on('input','#myRange',function(){
+        // 
+        var value = $('#myRange').val();
+        value = value*502/3750;
+        var min = Math.floor(value / 60);
+        var sec = parseInt(value % 60);
+        $("#time").val(min + ' min ' + sec + ' seconds');
+
+        // control flowplayer
+        api.pause().seek(value);
+    });
+
+
+    $(document).on('click','#start',function(){
+        var value = $('#time').val();
+        $('#startI').val(value);
+    })
+
+
+    $(document).on('click', '#end', function () {
+        var value = $('#time').val();
+        $('#endI').val(value);
+    })
    
-    var start = document.getElementById('start');
-    var end = document.getElementById('end');
+    $(document).on('click', '#reset', function () {
+        $('#startI').val('');
+        $('#endI').val('');
+    })
+    
+    
+    $(document).on('click', '#confirm', function () {
 
-    start.addEventListener('change', function () {
-        slider.noUiSlider.set([null, this.value]);
-    });
+        var path = $("#path").html().substring(29); 
+        var speed = $('#speed').val();
+        var name = $('#name').val();
+        
+        var startStr = $('#startI').val();
+        var arr1 = startStr.match(/\d+(.\d+)?/g);
+        var startT = parseInt(arr1[0])*60+parseInt(arr1[1]);
 
-    end.addEventListener('change', function () {
-        slider.noUiSlider.set([null, this.value]);
-    });
+        var endStr = $('#endI').val();
+        var arr2 = endStr.match(/\d+(.\d+)?/g);
+        var endT = parseInt(arr2[0]) * 60 + parseInt(arr2[1]);
 
-    slider.noUiSlider.on('update', function (values, handle) {
 
-        var value = values[handle];
+     
 
-        if (handle) {
-            end.value = value;
-        } else {
-            start.value = value;
-        }
-    });
-
+        $.get('/workspace/clip',{
+            path:path,
+            startT:startT,
+            endT:endT,
+            speed:speed,
+            name:name
+         }, function(){
+             
+         })
+           
+    })
 
 
 });

@@ -17,7 +17,7 @@ block content
             .ui.relaxed.divided.items
                 .item
                     .ui.small.image
-                        img(src='/images/images.jpeg')
+                        img(src= video.coverImg)
                     .content
                         a.header #{video.title}
                         .meta
@@ -27,7 +27,7 @@ block content
                             |   #{video.descriptions}
                         .extra
                             .ui.right.floated.primary.button
-                                a(href='/workspace/'+video._id) Enter
+                                a(href='/workspace/video/'+video._id) Enter
                         each i in video.tags   
                             .ui.label  #{i}                          
                 

@@ -14,63 +14,62 @@
         crossorigin="anonymous"></script>
 </head>
 
+<style>
+    .slidecontainer {
+        width: 300px;    /*  trackthumbs width */
+    }
+
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 100px;
+        background:url("/Users/ZL/Desktop/OVE/public/existedWatermark/track.png"),no-repeat;
+        outline: none;
+        opacity: 1;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        border-width: 20px;
+        border-color: yellow;
+
+
+       
+    }
+
+    .slider:hover {
+        opacity: 0.95;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 2px;
+        height: 200px;
+        background: rgb(109, 15, 15);
+        cursor: pointer;
+     
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 50px;
+        background: #4CAF50;
+        
+        cursor: pointer;
+    }
+</style>
+</head>
+
 <body>
-    <!-- menu -->
-    <div class="ui inverted segment">
-        <div class='ui container'>
-            <div class="ui inverted secondary pointing menu">
-    
-                <a class="item">
-                    <h2>
-                        OVE - online video editing
-                    </h2>
-                </a>
-    
-                <div class="right menu">
-    
-                    <a class="ui item">
-                        <h3> Lorens</h3>
-                    </a>
-                    <a class="ui item">
-                        <h3> Export</h3>
-                    </a>
-                    <a class="ui item">
-                        <h3> Logout</h3>
-                    </a>
-                </div>
-    
-            </div>
-        </div>
-    </div>
-        <br><br><br>
-    <div class="ui container">
-        
-    <form class="ui form" action="/user/login" method="post">
-        <div class="field">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address">
-            <small>We'll never share your email with anyone else.</small>
-        </div>
-        <div class="field">
-            <label for="Password">Password</label>
-            <input type="password" id="Password" name="password" placeholder="Enter your password">
-        </div>
-        <input type="hidden" name="_csrf">
-        <br>
-        
-            
-            <button class="ui primary basic button">Primary</button>
-         
-    </form>
-    
-    <br>
-    <p>Don't have an account?
-        <a href="/signup"> Sign Up Instead!</a>
-    </p>
+
+    <h1>Custom Range Slider</h1>
+
+    <div class="slidecontainer">
+        <p>Default range slider:</p>
+        <input type="range" min="1" max="100" value="50">
+
+        <p>Custom range slider:</p>
+        <input type="range" min="1" max="100" value="80" class="slider" id="myRange">
     </div>
 
-    <!-- footer bar-->
-    
-</body>
 
 </html>

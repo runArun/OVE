@@ -15,7 +15,6 @@ var flash = require('connect-flash');
 
 var indexRoute = require('./routes/index');
 var usersRoutes = require('./routes/users');
-var api = require('./routes/api');
 var videos = require('./routes/videos');
 var workspace = require('./routes/workspace');
 
@@ -62,7 +61,6 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRoute);
 app.use('/user', usersRoutes);
-app.use('/api', api);
 app.use('/workspace', workspace);
 app.use('/videos', videos);
 // catch 404 and forward to error handler

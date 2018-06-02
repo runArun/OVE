@@ -1,4 +1,13 @@
 var ffmpeg = require('fluent-ffmpeg');
+var path = require('path');
+var fse = require('fs-extra')
+
+const clipsName = [];
+
+const clipsDir = '/Users/zl/Desktop/OVE/public/clips/'
+const mergeDir = '/Users/zl/Desktop/OVE/public/merge/'
+const tempDir = '/Users/zl/Desktop/OVE/public/temp/'
+const exportDir = '/Users/zl/Desktop/OVE/public/temp/export/'
 
 var command = function ( input ){
 
@@ -29,7 +38,6 @@ module.exports.getInfo = function (req, res, next) {
 
 
 }
-
 module.exports.convert = function (req, res, next) {
     
     var inputVideo = "/Users/ZL/Desktop/OVE/public/existedVdieos/new.avi";
@@ -51,66 +59,6 @@ module.exports.convert = function (req, res, next) {
 
     
 }
-
-module.exports.merge = function (req, res, next) {
-
-    //let output = args[0];
-
-    var i1 = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
-    var i2 = '/Users/ZL/Desktop/OVE/public/existedVdieos/2.mp4'
-    ffmpeg(i1)
-
-        .input(i2)
-
-        .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
-        .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
-        .on('error', err => console.log('An error occurred: ' + err.message))
-        .on('end', () => console.log('Processing finished !'))
-
-        .mergeToFile('/Users/ZL/Desktop/OVE/public/existedVdieos/3.mp4');
-        
-    
-    // for (i = 0, i < args.length, i++;) {
-    //     output += ffmpeg(output)
-    //         .input(args[i])
-    //         .on('error', err => console.log('An error occuered: ' + err.message))
-    //         .on('end', () => console.log('Merging finished'))
-    // }
-
-    // output.mergeToFile(, path)
-
-    
-    res.send('done');
-
-}
-
-module.exports.trim = function (req, res, next) {
-
-    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/5.mp4';
-
-    command(i)
-
-        .seekInput(0)     // set start time
-        .setDuration(15)   // 150 - 300
-        
-
-        .save('/Users/ZL/Desktop/track/trimff.mp4')
-}
-
-module.exports.slowMotion = function (req, res, next) {
-    var inputV = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
-    var outputV = '/Users/ZL/Desktop/OVE/public/existedVdieos/10.mp4';
-
-
-        
-    command(inputV)
-        .videoFilter('setpts=1/2*PTS') //
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/5.mp4')
-
-
-
-}
-
 module.exports.addWatermark = function (req, res, next) {
 
     var inputV = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
@@ -139,13 +87,11 @@ module.exports.addWatermark = function (req, res, next) {
         res.send('done');
         
 };
-
 module.exports.thumbs= function (req, res, next) {  //get cover thumbnail
 
     var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
 
     ffmpeg(i)
-       
         
         .on('filenames', function (filenames) {
             console.log('screenshots are ' + filenames.join(', '));
@@ -161,13 +107,12 @@ module.exports.thumbs= function (req, res, next) {  //get cover thumbnail
         //.takeScreenshots({ count: 1, timemarks: ['00:00:02.000'], size: '150x100' }, '/Users/ZL/Desktop/OVE/public/existedWatermark');
 
 };
-      
 module.exports.thumbsP= function (req, res, next) {  //get track thumbnails
 
     var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
 
     ffmpeg(i)
-       
+
         
         .on('filenames', function (filenames) {
             console.log('screenshots are ' + filenames.join(', '));
@@ -186,23 +131,77 @@ module.exports.thumbsP= function (req, res, next) {  //get track thumbnails
     
 }
 
-module.exports.clip = function (path, st, et, speed, name, cb) {
-    var duration = et - st ;
-   
-    var pre = '/Users/ZL/Desktop/OVE/public/';
+module.exports.clip = (path, st, et, speed, name, cb) => {
     
+    fse.ensureDirSync(clipsDir)
+   
+    var duration = et - st ;
+
+    var pre = '/Users/ZL/Desktop/OVE/public/';
+
     path = pre.concat(path).trim();
 
-    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
-
-
+    //var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
+    var outputPath = clipsDir+name+'.mp4';
+    
 
     command(path)
-        
+
         .seekInput(st)     // set start time
         .setDuration(duration)   // 150 - 300
         .videoFilter('setpts='+speed+'*PTS') //
-        .save('/Users/ZL/Desktop/OVE/public/existedWatermark/'+name+'.mp4');
+        .save(outputPath)
 
-    cb();
+    clipsName.push(name);
+    console.log(clipsName);    
+    
+    cb(clipsName);
+    
 }
+
+module.exports.merge = name => {
+
+    fse.ensureDirSync(mergeDir)
+    fse.ensureDirSync(tempDir)
+
+    if ( clipsName.length = 0 ) {
+        res.send('done');
+
+    } else {
+        
+        clipName.forEach( clip => {
+            clip = clipsDir + clip + '.mp4';
+            ffmpeg = ffmpeg.addInput(clip);
+        }).then(  
+            ffmpeg.mergeToFile( mergeDir+name+'.mp4',tempDir)
+                .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
+                .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
+                .on('error', err => console.log('An error occurred: ' + err.message))
+                .on('end', () => console.log('Processing finished !'))
+
+            ,err => console.log(err)
+        ).then(
+            res,send('done')
+        )
+            
+    }
+
+}
+module.exports.exportV = (name, format)=> {
+    fse.ensureDirSync(exportDir)
+    
+}
+
+
+module.exports.isEmpty = () => {  
+
+    var empty = true;
+
+    if (clipsName.length != 0) {
+        empty = false;
+    }
+
+    return empty;
+}
+
+

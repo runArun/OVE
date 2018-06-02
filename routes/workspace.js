@@ -30,14 +30,15 @@ router.get('/clip',function(req, res, next){
     var speed = req.query.speed;
     var name = req.query.name;
 
-    console.log('/'+path)
-    
-    
+    videoP.clip(path, st, et, speed, name, function(data){
+        data => {
+            
+            res.send(data)
+        }
+       
+    })
+        
 
-    videoP.clip(path, st, et, speed, name, function(){})
-    
-    
-    
 })
 
 module.exports = router;

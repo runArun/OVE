@@ -31,7 +31,7 @@ html
     .ui.inverted.segment
       .ui.container
       .ui.inverted.secondary.pointing.menu
-        a.item
+        a.ui.item(href='/user/logout')
         h2
           | OVE - online video editing
         .right.menu
@@ -41,9 +41,9 @@ html
           a.ui.item
             h3  Export
         // if user login
-        a.ui.item
+        a.ui.item(href='/user/logout')
           h3 
-              a(href='/user/logout') Logout
+            | Logout
   
     block content
     

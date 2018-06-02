@@ -18,10 +18,6 @@ var Video = new schema({
 
     duration: { type: Number },
 
-
-
-
-
     createTime : {
         type: Date,
         default: Date.now
@@ -32,3 +28,4 @@ var Video = new schema({
 });
 
 module.exports = mongoose.model('video', Video);
+ 

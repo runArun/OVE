@@ -1,5 +1,7 @@
 $(document).ready(function () {
+    
     // load slider
+
     // load player
     var path = $("#path").html().substring(28);
     console.log(path)
@@ -20,8 +22,6 @@ $(document).ready(function () {
  
     var api = flowplayer();
     
-
-
     $(document).on('input','#myRange',function(){
         // 
         var value = $('#myRange').val();
@@ -51,7 +51,6 @@ $(document).ready(function () {
         $('#endI').val('');
     })
     
-    
     $(document).on('click', '#confirm', function () {
 
         var path = $("#path").html().substring(29); 
@@ -66,20 +65,31 @@ $(document).ready(function () {
         var arr2 = endStr.match(/\d+(.\d+)?/g);
         var endT = parseInt(arr2[0]) * 60 + parseInt(arr2[1]);
 
-
-     
-
         $.get('/workspace/clip',{
+
             path:path,
             startT:startT,
             endT:endT,
             speed:speed,
             name:name
-         }, function(){
+
+         }, data => {
              
+            console.log(data);
+            //  $("#clips")
+            //     .find('')
          })
            
     })
 
+    $(document).on('click','#merge',() => {
+
+    })
+
+    $(document).on('click','#index',() => {
+        $.get('/');
+    })
 
 });
+
+

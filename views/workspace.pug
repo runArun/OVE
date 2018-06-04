@@ -8,23 +8,33 @@ block content
                 #player
 
             .five.wide.column
+                
+                    
                 .ui.styled.fluid.accordion
-
+                    
                     .active.title
                         i.dropdown.icon 
                         |   Source
+                        |
+                        i.icon.folder.open
                     .active.content
-                        h3  #{video.title}
-                    
-                    
+                        
+                        h3  
+                            i.icon.film
+                            | #{video.title}
+
+
                     .title#clips
                         i.dropdown.icon
                         |   Clips
+                        |
+                        i.icon.cut
                     .content
                         form
-                            .ui.list
-                                .item(href='www.google.com')
-                                    
+                            ol.ui.list#clipsOl
+                                
+                                //li
+                                    i.icon.video
                                     | Apples
                                     
                            
@@ -32,7 +42,9 @@ block content
                     
                     .title
                         i.dropdown.icon
-                        |                             Merge
+                        |   Merge
+                        |
+                        i.icon.star
                    
                     .content
                         form
@@ -45,6 +57,8 @@ block content
                     .title
                         i.dropdown.icon
                         |   Watermark
+                        |
+                        i.icon.paper.plane
                     .content
                         form(action='/workspace/watermark', method='post',      enctype='multipart/form-data')
                             h4 Please submit your image as watermark here
@@ -53,43 +67,51 @@ block content
                             br
                             small (notice: this image will automatically transform to watermark)
                             .ui.divider
-                            p.doneornot you haven't upload your watermark
+                            p.doneornot 
+                                i.icon.image
+                                |   you haven't upload your watermark
+                            
                             image
 
 
                     .title
                         i.dropdown.icon
-                        |                            Export
+                        |   Export
+                        |
+                        i.icon.cloud.download
+                        
                     .content
                         form
                             h4 
                                 | Do you wanna merge and export it ?
-                            h4  
-                                | choose format avi  mp4  flv  ..
+                            
                             .ui.divider
                             button#export 
-                                a(href='#' download='1.mp4') export
+                                |   export
 
 
                     .title
                         i.dropdown.icon
-                        |                            Your operation log
+                        |   Your operation log
+                        |
+                        i.icon.paperclip
                     .content
                         
                         form 
-                            ol.ui.list
-                                li Signing Up
-                                li User Benefits
-                                li User Types
+                           
+                            ol.ui.list#log
+                                
                 br 
                 br
-                br
-
-                .div.myProgress(hidden='hidden')
-                    .ui.teal.progress
-                        .bar
-                            .progress
-                            
+                
+               
+             
+                .center.aligned.ui.segment#loader
+                    .ui.centered.inline.loader.huge.active
+                    h1   On processing, Complete immediately... ...
+                    i.icon.heart
+            
+                    
         .ui.divider
         
         .row

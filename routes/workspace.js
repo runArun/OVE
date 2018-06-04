@@ -32,30 +32,32 @@ router.get('/clip',function(req, res, next){
 
     videoP.clip(
         path, st, et, speed, name, 
-        data => res.send(data)    
+        data => res.send(data)
     );
+
 });
 
 router.get('/merge',function(req, res, next){
     videoP.merge();
-    res.send('done');
+    res.end();
 });
 
 router.post('/watermark', stream.uploadW.single('watermark'), function(req, res, next){
     
     var file = req.file;
-    console.log(file);
-        
+    console.log(file);    
     imageP.createWatermark(file.path);
-        
- 
-
+    res.end();
 });
+
 
 router.get('/export',function(req, res, next){
 
-    videoP.exportV(
-    );
+    videoP.exportV();
+    res.send('done');
+    res.sendFile('');
 });
+
+
 
 module.exports = router;

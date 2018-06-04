@@ -37,13 +37,10 @@ router.post('/upload',stream.uploadV.single('video'), function(req, res, next){
     
     console.log(file);
         
-    videoP.createFrames(file.path,file.filename);
-        
+    videoP.createFrames(file.path,file.filename); 
     videoP.createCoverThumb(file.path,file.filename);
-        
-    res.redirect('/videos');
-    
 
+    res.redirect('/videos');
 
 });
 

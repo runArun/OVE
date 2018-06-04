@@ -23,7 +23,6 @@ router.post('/login', passport.authenticate('local.login', {
   }
 });
 
-
 router.get('/signup', function (req, res, next) {
   var messages = req.flash('error');
   res.render('user/signup', { messages: messages, hasErrors: messages.length > 0 });
@@ -52,9 +51,7 @@ router.get('/logout', checkAuthentication, function (req, res, next) {
   res.redirect('/user/login');
 });
 
-
 module.exports = router;
-
 
 function checkAuthentication(req, res, next) {//do something only if user is authenticated
   if (req.isAuthenticated()) {

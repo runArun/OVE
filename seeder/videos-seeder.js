@@ -2,7 +2,6 @@ var Video = require('../model/video');
 
 require('../config/db.js');
 
-
 var videos = [
     new Video({
 

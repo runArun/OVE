@@ -6,7 +6,7 @@ then use gm
 var gm = require('gm');
 var fse = require('fs-extra');
 
-var tempDir = '/Users/zl/Desktop/OVE/public/temp';
+var tempDir = '/Users/zl/Desktop/OVE/public/temp/';
 var frameTrackDir = '/Users/ZL/Desktop/OVE/public/images/frameTrack/';
 
 module.exports.createWatermark = input => {
@@ -22,7 +22,7 @@ module.exports.createFramesTrack = name => {
     var files = fse.readdirSync(tempDir);
 
     for (var i=1;i<=files.length;i++){
-        input.push('/Users/ZL/Desktop/OVE/public/temp/out'+i+'.png');
+        input.push(tempDir+'out'+i+'.png');
     }
 
     gm()

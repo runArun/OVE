@@ -15,13 +15,16 @@ const mergeDir = '/Users/zl/Desktop/OVE/public/workspace/merge/';
 const tempDir = '/Users/zl/Desktop/OVE/public/temp/';
 const exportDir = '/Users/zl/Desktop/OVE/public/workspace/export/';
 
+
+
 const command = input => {
 
     return ffmpeg( input )
         .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
         .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
-        .on('error', err => console.log('An error occurred: ' + err.message))
-        .on('end', () => console.log('Processing finished !'));
+        //.on("progress", progress => console.dir(progress))
+        .on('error', err => console.log('An error occurred: ' + err.message));
+   
 
 };
 
@@ -136,7 +139,6 @@ module.exports.clip = (path, st, et, speed, name, cb) => {
 
     path = pre.concat(path).trim();
 
-    //var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
     var outputPath = clipsDir+name+'.mp4';
     
     command(path)
@@ -144,31 +146,38 @@ module.exports.clip = (path, st, et, speed, name, cb) => {
         .seekInput(st)     // set start time
         .setDuration(duration)   // 150 - 300
         .videoFilter('setpts='+speed+'*PTS') //
-        .save(outputPath);
+        .save(outputPath)
+        .on('end', () => {
+            console.log('Processing finished !');
+            clipsName.push(name);
+            cb(clipsName);
+        });
 
-    clipsName.push(name);
-    console.log(clipsName);    
+
     
-    cb(clipsName);
     
 };
 module.exports.merge = () => {
 
-    var files = fse.readdirSync(clipsDir);
+ 
     var mergedVideo = ffmpeg();
 
-    files.forEach( clip => {
-        mergedVideo = mergedVideo.addInput( clipsDir+clip );
+    clipsName.forEach( clip => {
+        mergedVideo = mergedVideo.addInput( clipsDir+clip+'.mp4' );
     });
 
     mergedVideo.mergeToFile( mergeDir+'merge.mp4',tempDir)
     .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
     .on("progress", progress => console.log('progressing:' + progress.percent + '% have been done'))
     .on('error', err => console.log('An error occurred: ' + err.message))
-    .on('end', () => console.log('Processing finished !'));
+    .on('end' );
 };
-module.exports.exportV = (name, format)=> {
-    fse.ensureDirSync(exportDir);
+
+module.exports.exportV = cb => {
+    fse.emptyDir(clipsDir);
+    fse.emptyDir(mergeDir);
+    fse.emptyDir(watermarkDir);
+    cb();
 };
 
 module.exports.isEmpty = () => {  

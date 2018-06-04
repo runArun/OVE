@@ -12,7 +12,6 @@ var MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var flash = require('connect-flash');
 
-
 var indexRoute = require('./routes/index');
 var usersRoutes = require('./routes/users');
 var videos = require('./routes/videos');
@@ -42,7 +41,7 @@ app.use(session({               //add session to all routes
 app.use(flash());
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
 app.use(validator());
 app.use(cookieParser());
@@ -61,15 +60,15 @@ app.use(function (req, res, next) {
 
 app.use('/', indexRoute);
 app.use('/user', usersRoutes);
-app.use('/workspace', workspace);
 app.use('/videos', videos);
+app.use('/workspace', workspace);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -81,6 +80,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;

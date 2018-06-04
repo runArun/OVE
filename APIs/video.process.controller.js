@@ -1,27 +1,33 @@
+/*
+brew install ffmpeg
+then use 
+*/
 var ffmpeg = require('fluent-ffmpeg');
 var path = require('path');
-var fse = require('fs-extra')
+var fse = require('fs-extra');
+var async = require('async');
 
+var imageP = require('./image.process.controller');
 const clipsName = [];
 
-const clipsDir = '/Users/zl/Desktop/OVE/public/clips/'
-const mergeDir = '/Users/zl/Desktop/OVE/public/merge/'
-const tempDir = '/Users/zl/Desktop/OVE/public/temp/'
-const exportDir = '/Users/zl/Desktop/OVE/public/temp/export/'
+const clipsDir = '/Users/zl/Desktop/OVE/public/workspace/clips/';
+const mergeDir = '/Users/zl/Desktop/OVE/public/workspace/merge/';
+const tempDir = '/Users/zl/Desktop/OVE/public/temp/';
+const exportDir = '/Users/zl/Desktop/OVE/public/workspace/export/';
 
-var command = function ( input ){
+const command = input => {
 
     return ffmpeg( input )
         .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
         .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
         .on('error', err => console.log('An error occurred: ' + err.message))
-        .on('end', () => console.log('Processing finished !'))
+        .on('end', () => console.log('Processing finished !'));
 
-}
+};
 
 module.exports.getInfo = function (req, res, next) {
 
-    var input = '/Users/ZL/Desktop/track/trimf.mp4' //change!!!!
+    var input = '/Users/ZL/Desktop/track/trimf.mp4'; //change!!!!
     
     ffmpeg.getAvailableFilters(function (err, filters) {
         console.log("Available filters:");
@@ -34,10 +40,10 @@ module.exports.getInfo = function (req, res, next) {
         console.dir(metadata);
 
         res.json(metadata);
-    })
+    });
 
 
-}
+};
 module.exports.convert = function (req, res, next) {
     
     var inputVideo = "/Users/ZL/Desktop/OVE/public/existedVdieos/new.avi";
@@ -55,21 +61,14 @@ module.exports.convert = function (req, res, next) {
         .withVideoBitrate(1024)
        
 
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/webmvideo.webm')
+        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/webmvideo.webm');
 
     
-}
+};
 module.exports.addWatermark = function (req, res, next) {
 
     var inputV = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
     var watermark = '/Users/ZL/Desktop/OVE/public/existedWatermark/2.png';
-    
-    // ffmpeg(inputV)
-
-    //     .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
-    //     .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
-    //     .on('error', err => console.log('An error occurred: ' + err.message))
-    //     .on('end', () => console.log('Processing finished !'))
     command(inputV)
 
         .input(watermark)
@@ -82,16 +81,14 @@ module.exports.addWatermark = function (req, res, next) {
             "[0:v]scale=640:-1[bg];[bg][1:v]overlay=W-w-10:H-h-10"
         ])
         
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/5.mp4')
+        .save('/Users/ZL/Desktop/OVE/public/workspace/export/5.mp4');
 
         res.send('done');
         
 };
-module.exports.thumbs= function (req, res, next) {  //get cover thumbnail
+module.exports.createCoverThumb = ( input, name ) => {  //get cover thumbnail
 
-    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
-
-    ffmpeg(i)
+    ffmpeg(input)
         
         .on('filenames', function (filenames) {
             console.log('screenshots are ' + filenames.join(', '));
@@ -103,22 +100,25 @@ module.exports.thumbs= function (req, res, next) {  //get cover thumbnail
             console.log('an error happened: ' + err.message);
         })
         // take 2 screenshots at predefined timemarks and size
-        .takeScreenshots({ count: 2, timemarks: ['00:00:02.000', '6'], size: '150x100', filename: 'thumbnail-at-%s-seconds.png', }, '/Users/ZL/Desktop/OVE/public/existedWatermark');
-        //.takeScreenshots({ count: 1, timemarks: ['00:00:02.000'], size: '150x100' }, '/Users/ZL/Desktop/OVE/public/existedWatermark');
-
+        .takeScreenshots(
+            {   count: 1, 
+                timemarks: ['1'], 
+                size: '300x300', 
+                filename: name+'.png' 
+            }, '/Users/ZL/Desktop/OVE/public/images/coverThumb'
+        );
 };
-module.exports.thumbsP= function (req, res, next) {  //get track thumbnails
+module.exports.createFrames = (input,name) => {  //get track thumbnails
 
-    var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
+    ffmpeg(input)
 
-    ffmpeg(i)
-
-        
         .on('filenames', function (filenames) {
             console.log('screenshots are ' + filenames.join(', '));
         })
         .on('end', function () {
             console.log('screenshots were saved');
+            imageP.createFramesTrack(name);
+            
         })
         .on('error', function (err) {
             console.log('an error happened: ' + err.message);
@@ -126,15 +126,10 @@ module.exports.thumbsP= function (req, res, next) {  //get track thumbnails
         // take 2 screenshots at predefined timemarks and size
         .videoFilter('fps=fps=1/20') //
         .size('150x100')
-        .save('/Users/ZL/Desktop/OVE/public/images/out%d.png')
-
-    
-}
-
+        .save('/Users/ZL/Desktop/OVE/public/temp/out%d.png');    
+};
 module.exports.clip = (path, st, et, speed, name, cb) => {
     
-    fse.ensureDirSync(clipsDir)
-   
     var duration = et - st ;
 
     var pre = '/Users/ZL/Desktop/OVE/public/';
@@ -144,64 +139,48 @@ module.exports.clip = (path, st, et, speed, name, cb) => {
     //var i = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
     var outputPath = clipsDir+name+'.mp4';
     
-
     command(path)
 
         .seekInput(st)     // set start time
         .setDuration(duration)   // 150 - 300
         .videoFilter('setpts='+speed+'*PTS') //
-        .save(outputPath)
+        .save(outputPath);
 
     clipsName.push(name);
     console.log(clipsName);    
     
     cb(clipsName);
     
-}
+};
+module.exports.merge = () => {
 
-module.exports.merge = name => {
+    var files = fse.readdirSync(clipsDir);
+    var mergedVideo = ffmpeg();
 
-    fse.ensureDirSync(mergeDir)
-    fse.ensureDirSync(tempDir)
+    files.forEach( clip => {
+        mergedVideo = mergedVideo.addInput( clipsDir+clip );
+    });
 
-    if ( clipsName.length = 0 ) {
-        res.send('done');
-
-    } else {
-        
-        clipName.forEach( clip => {
-            clip = clipsDir + clip + '.mp4';
-            ffmpeg = ffmpeg.addInput(clip);
-        }).then(  
-            ffmpeg.mergeToFile( mergeDir+name+'.mp4',tempDir)
-                .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
-                .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
-                .on('error', err => console.log('An error occurred: ' + err.message))
-                .on('end', () => console.log('Processing finished !'))
-
-            ,err => console.log(err)
-        ).then(
-            res,send('done')
-        )
-            
-    }
-
-}
+    mergedVideo.mergeToFile( mergeDir+'merge.mp4',tempDir)
+    .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
+    .on("progress", progress => console.log('progressing:' + progress.percent + '% have been done'))
+    .on('error', err => console.log('An error occurred: ' + err.message))
+    .on('end', () => console.log('Processing finished !'));
+};
 module.exports.exportV = (name, format)=> {
-    fse.ensureDirSync(exportDir)
-    
-}
-
+    fse.ensureDirSync(exportDir);
+};
 
 module.exports.isEmpty = () => {  
 
-    var empty = true;
+    var files1 = fse.readdirSync('/Users/zl/Desktop/OVE/public/workspace/clips/');
+    var files2 = fse.readdirSync('/Users/zl/Desktop/OVE/public/workspace/export/');
+    var files3 = fse.readdirSync('/Users/zl/Desktop/OVE/public/workspace/merge/');
+    var files4 = fse.readdirSync('/Users/zl/Desktop/OVE/public/workspace/watermark/');
 
-    if (clipsName.length != 0) {
-        empty = false;
-    }
+    return (files1.length == 0 && files2.length == 0 && files3.length == 0 && files4.length == 0)?
+    true:false;
 
-    return empty;
-}
+};
 
 

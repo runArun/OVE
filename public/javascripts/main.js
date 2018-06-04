@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     // load player
     var path = $("#path").html().substring(28);
-    console.log(path)
+    console.log(path);
 
     flowplayer('#player', {
         clip: {
@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
 
     // link input range with start and end
- 
+
     var api = flowplayer();
     
     $(document).on('input','#myRange',function(){
@@ -38,18 +38,17 @@ $(document).ready(function () {
     $(document).on('click','#start',function(){
         var value = $('#time').val();
         $('#startI').val(value);
-    })
-
+    });
 
     $(document).on('click', '#end', function () {
         var value = $('#time').val();
         $('#endI').val(value);
-    })
-   
+    });
+    
     $(document).on('click', '#reset', function () {
         $('#startI').val('');
         $('#endI').val('');
-    })
+    });
     
     $(document).on('click', '#confirm', function () {
 
@@ -64,31 +63,28 @@ $(document).ready(function () {
         var endStr = $('#endI').val();
         var arr2 = endStr.match(/\d+(.\d+)?/g);
         var endT = parseInt(arr2[0]) * 60 + parseInt(arr2[1]);
-
         $.get('/workspace/clip',{
-
             path:path,
             startT:startT,
             endT:endT,
             speed:speed,
             name:name
-
-         }, data => {
-             
+        }, data => { 
             console.log(data);
             //  $("#clips")
             //     .find('')
-         })
-           
-    })
+        });
+    });
 
     $(document).on('click','#merge',() => {
-
-    })
+        $.get('/workspace/merge');
+    });
 
     $(document).on('click','#index',() => {
         $.get('/');
-    })
+    });
+
+
 
 });
 

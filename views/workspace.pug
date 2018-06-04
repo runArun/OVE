@@ -1,15 +1,10 @@
 extends layout
 block content
     // content
-    .ui.grid 
-       
-        
+    .ui.grid   
         .row
-
             .eleven.wide.column
-                p#path(hidden='') #{video.videoPath} 
-                    
-                    
+                p#path(hidden='') #{video.videoPath}          
                 #player
 
             .five.wide.column
@@ -26,10 +21,13 @@ block content
                         i.dropdown.icon
                         |   Clips
                     .content
-                        .ui.list
-                            .item(href='www.google.com')
-                                 
-                                | Apples
+                        form
+                            .ui.list
+                                .item(href='www.google.com')
+                                    
+                                    | Apples
+                                    
+                           
                         
                     
                     .title
@@ -37,9 +35,10 @@ block content
                         |                             Merge
                    
                     .content
-                       
-                        p
-                            | Do you want merge all clips into the final video ?
+                        form
+                            h4 Do you want merge all clips into the final video ?
+                            .ui.divider
+                            button#merge merge
 
 
 
@@ -47,34 +46,41 @@ block content
                         i.dropdown.icon
                         |   Watermark
                     .content
-                        form(action='/upload', method='post', enctype='multipart/form-data')
+                        form(action='/workspace/watermark', method='post',      enctype='multipart/form-data')
                             h4 Please submit your image as watermark here
-                            input(type='file', name='image')
+                            input(type='file', name='watermark')
                             input(type='submit', value='submit')
                             br
                             small (notice: this image will automatically transform to watermark)
                             .ui.divider
                             p.doneornot you haven't upload your watermark
                             image
-                          
+
 
                     .title
                         i.dropdown.icon
                         |                            Export
                     .content
-                        
-                        p
-                            | Do you wanna merge and export it ?
-                            | choose format avi  mp4  flv  ..
-                       
+                        form
+                            h4 
+                                | Do you wanna merge and export it ?
+                            h4  
+                                | choose format avi  mp4  flv  ..
+                            .ui.divider
+                            button#export 
+                                a(href='#' download='1.mp4') export
+
 
                     .title
                         i.dropdown.icon
                         |                            Your operation log
                     .content
                         
-                        p
-                            | Logs of what you have done.   
+                        form 
+                            ol.ui.list
+                                li Signing Up
+                                li User Benefits
+                                li User Types
                 br 
                 br
                 br
@@ -93,8 +99,7 @@ block content
                 .slidecontainer
                     
                     br                
-                    input#myRange.slider(type='range', min='1', max='3750')
-           
+                    input#myRange.slider(type='range', min='1', max='15468')
             
             
             .five.wide.column

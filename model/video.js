@@ -7,13 +7,13 @@ var Video = new schema({
     title : { type: String, required: true },
 
     videoPath : { type: String, required: true },
-   
+
     tags : {  type: [String] },
     
     descriptions : { type: String },
     
-    coverImg : { type: String },
-
+    coverThumb : { type: String },
+    
     trackThumbs : { type: String },  
 
     duration: { type: Number },

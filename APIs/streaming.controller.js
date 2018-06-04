@@ -1,43 +1,25 @@
-var fs = require('fs');
+var fse = require('fs-extra');
 var multer = require('multer');
 
-
-var upload = multer({
-    storage: multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, './uploads/');
-        },
-        filename: function (req, file, cb) {
-            //file.originalname上传文件的原始文件名
-            var changedName = (new Date().getTime()) + '-' + file.originalname;
-            cb(null, changedName);
-        }
-    })
+var storagevideo = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/Users/zl/Desktop/OVE/public/videos');   
+    },
+    filename: function (req, file, cb) {
+        // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943
+        cb(null,  file.fieldname + '-' + Date.now()+ '.' + file.originalname.substring(file.originalname.lastIndexOf(".")+1));
+    }
 });
 
-module.exports.uploadWatermark = function (req, res, next){
-    upload.single(watermark);
-    var file = req.file;
+var storageimage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/Users/zl/Desktop/OVE/public/workspace/watermark');   
+    },
+    filename: function (req, file, cb) {
+        // 将保存文件名设置为 字段名 + 时间戳，比如 logo-1478521468943
+        cb(null,  file.fieldname + '-' + Date.now()+ '.' + file.originalname.substring(file.originalname.lastIndexOf(".")+1)); 
+    }
+});
 
-    console.log('文件类型：%s', file.mimetype);
-    console.log('原始文件名：%s', file.originalname);
-    console.log('文件大小：%s', file.size);
-    console.log('文件保存路径：%s', file.path);
-
-    res.send({ ret_code: '0' });
-};
-    
-
-module.exports.uploadVideo = function (req, res, next) {
-    upload.single(video);
-    res.send({ ret_code: '0' });
-};
-
-module.exports.downloadWatermark = function (req, res, next) {
-    var form = fs.readFileSync('./form.html', { encoding: 'utf8' }); //error;
-    res.send(form);
-};
-
-module.exports.downloadVideo = function () {
-
-};
+module.exports.uploadV = multer({ storage: storagevideo });
+module.exports.uploadW = multer({ storage: storageimage });

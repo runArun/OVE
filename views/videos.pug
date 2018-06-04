@@ -17,7 +17,7 @@ block content
             .ui.relaxed.divided.items
                 .item
                     .ui.small.image
-                        img(src= video.coverImg)
+                        img(src= video.coverThumb)
                     .content
                         a.header #{video.title}
                         .meta
@@ -37,4 +37,7 @@ block content
         .row
             button.ui.inverted.circular.segment
                 h3.ui.inverted.header
-                    a(href="/workspace") Upload New One
+                    a#uploadV Upload New One
+                        form(action='/videos/upload', method='post', enctype='multipart/form-data')
+                            input(type='file', name='video')
+                            input(type='submit', value='submit')

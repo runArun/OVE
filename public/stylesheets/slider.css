@@ -5,9 +5,9 @@
 
 .slider {
     -webkit-appearance: none;
-    width: 3750px;
+    width: 15468px;
     height: 100px;
-    background: url("/existedWatermark/track.png"),
+    background: url("/images/frameTrack/video-1528089937125.mp4.png"),
     no-repeat;
     outline: none;
     opacity: 1;
@@ -50,11 +50,8 @@
     -webkit-perspective: 1000;
     -webkit-overflow-scrolling: touch;
     /* 2 */
-    text-align: justify;
-    /* 3 */
-    &::-webkit-scrollbar {
-        display: none;
-    }
+    text-align: justify
+   
 }
 
 

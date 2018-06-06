@@ -1,29 +1,22 @@
 extends layout
 block content
     // content
-    .ui.grid   
-        .row
+    .ui.grid
+        .row.ui
             .eleven.wide.column
                 p#path(hidden='') #{video.videoPath}          
                 #player
-
-            .five.wide.column
-                
-                    
-                .ui.styled.fluid.accordion
-                    
+            .five.wide.column  
+                .ui.styled.fluid.accordion     
                     .active.title
                         i.dropdown.icon 
                         |   Source
                         |
                         i.icon.folder.open
                     .active.content
-                        
                         h3  
                             i.icon.film
                             | #{video.title}
-
-
                     .title#clips
                         i.dropdown.icon
                         |   Clips
@@ -32,36 +25,25 @@ block content
                     .content
                         form
                             ol.ui.list#clipsOl
-                                
-                                //li
-                                    i.icon.video
-                                    | Apples
-                                    
-                           
-                        
-                    
                     .title
                         i.dropdown.icon
                         |   Merge
                         |
                         i.icon.star
-                   
                     .content
                         form
                             h4 Do you want merge all clips into the final video ?
                             .ui.divider
-                            button#merge merge
-
-
-
+                            button.ui.teal.button#merge merge
                     .title
                         i.dropdown.icon
                         |   Watermark
                         |
                         i.icon.paper.plane
-                    .content
+                    .content.ui.input
                         form(action='/workspace/watermark', method='post',      enctype='multipart/form-data')
                             h4 Please submit your image as watermark here
+                            br
                             input(type='file', name='watermark')
                             input(type='submit', value='submit')
                             br
@@ -72,8 +54,6 @@ block content
                                 |   you haven't upload your watermark
                             
                             image
-
-
                     .title
                         i.dropdown.icon
                         |   Export
@@ -86,10 +66,8 @@ block content
                                 | Do you wanna merge and export it ?
                             
                             .ui.divider
-                            button#export 
+                            button.ui.teal.button#export 
                                 |   export
-
-
                     .title
                         i.dropdown.icon
                         |   Your operation log
@@ -98,66 +76,47 @@ block content
                     .content
                         
                         form 
-                           
                             ol.ui.list#log
                                 
                 br 
                 br
-                
-               
-             
                 .center.aligned.ui.segment#loader
                     .ui.centered.inline.loader.huge.active
                     h1   On processing, Complete immediately... ...
-                    i.icon.heart
-            
-                    
-        .ui.divider
-        
+                    i.icon.heart 
+        //.ui.divider
         .row
-            
             .eleven.wide.column#sa
                 // min="1" max="100" value="80" id="myRange"          
                 .slidecontainer
-                    
                     br                
-                    input#myRange.slider(type='range', min='1', max='15468')
-            
-            
+                    input#myRange.slider(type='range', min='1', max='15468') 
             .five.wide.column
                 .ui.top.attached.tabular.menu
                     a.item.active(data-tab='split') Spilt
                     a.item(data-tab='speed') Speed
-                   
                 .ui.bottom.attached.tab.segment.active(data-tab='split')
                     div
                         input#startI
                         button#start Start
-                        
                         |
                         |
                         |
                         input#time
-     
                     br
-                  
-                    
                     div
                         input#endI
                         button#end End
                         
-                        button#reset Reset
+                        button.ui.button.small.floated.right#reset Reset
                         
-
                 .ui.bottom.attached.tab.segment(data-tab='speed')
                     select.ui.dropdown#speed
                         option(value="2") Slow  1 / 2         
                         option(value="1") Normal            
                         option(value="1/2") Fast   2         
-                     
                     
+                    button.teal.ui.right.floated.button#confirm confirm
+                    .ui.input
+                        input#name(placeholder="  Type clip name here")
                     
-                    input#name(placeholder="  Type clip name here")
-                    br
-                    button#confirm confirm
-

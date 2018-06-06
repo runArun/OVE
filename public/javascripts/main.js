@@ -90,7 +90,7 @@ $(document).ready(function () {
                 $('#clipsOl').empty();
 
                 for(let i = 1; i<=data.length;i++){
-                    $('#clipsOl').append('<li><i class="icon video"></>'+data[i-1]+'&nbsp'+'</li>');
+                    $('#clipsOl').append('<li>'+data[i-1]+'</li>');
                 }
 
 
@@ -99,7 +99,7 @@ $(document).ready(function () {
                 log.push(message);
                 loadLog();
             },
-            error: function(xhr) {
+            error: function(data) {
                 $('#loader').hide();
             }
         });
@@ -116,7 +116,7 @@ $(document).ready(function () {
             beforeSend: function(){
                 $('#loader').show();
             },
-            success: function() {
+            success: function(data) {
                 $('#loader').hide();
                 var message = 'merge operation';
                 log.push(message);

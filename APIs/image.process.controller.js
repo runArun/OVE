@@ -12,9 +12,9 @@ var frameTrackDir = '/Users/ZL/Desktop/OVE/public/images/frameTrack/';
 module.exports.createWatermark = input => {
     // successful
     gm( input )                       // load iamge as input 
-        .resize(64);                     
+        .resize(64)
+        .write(input,err => console.log(err));
 };
-
 module.exports.createFramesTrack = name => {
 
     var input = [];
@@ -28,8 +28,7 @@ module.exports.createFramesTrack = name => {
     gm()
         .append(input,true)
         .write(frameTrackDir + name + '.png',err => { 
-            if(err) console.log(err);
-            
+            if(err) console.log(err);           
             fse.emptyDir(tempDir);
         });  
 };

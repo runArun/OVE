@@ -28,9 +28,9 @@ const command = input => {
 
 };
 
-module.exports.getInfo = function (req, res, next) {
+module.exports.getInfo = path => {
 
-    var input = '/Users/ZL/Desktop/track/trimf.mp4'; //change!!!!
+    var input = path;
     
     ffmpeg.getAvailableFilters(function (err, filters) {
         console.log("Available filters:");
@@ -68,10 +68,10 @@ module.exports.convert = function (req, res, next) {
 
     
 };
-module.exports.addWatermark = function (req, res, next) {
+module.exports.addWatermark =  watermark => {
 
-    var inputV = '/Users/ZL/Desktop/OVE/public/existedVdieos/1.mp4';
-    var watermark = '/Users/ZL/Desktop/OVE/public/existedWatermark/2.png';
+    var inputV = mergeDir+'merge.mp4';
+
     command(inputV)
 
         .input(watermark)
@@ -84,9 +84,7 @@ module.exports.addWatermark = function (req, res, next) {
             "[0:v]scale=640:-1[bg];[bg][1:v]overlay=W-w-10:H-h-10"
         ])
         
-        .save('/Users/ZL/Desktop/OVE/public/workspace/export/5.mp4');
-
-        res.send('done');
+        .save(exportDir+'export.mp4');
         
 };
 module.exports.createCoverThumb = ( input, name ) => {  //get cover thumbnail
@@ -159,7 +157,7 @@ module.exports.clip = (path, st, et, speed, name, cb) => {
 };
 module.exports.merge = () => {
 
- 
+
     var mergedVideo = ffmpeg();
 
     clipsName.forEach( clip => {
@@ -170,7 +168,7 @@ module.exports.merge = () => {
     .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
     .on("progress", progress => console.log('progressing:' + progress.percent + '% have been done'))
     .on('error', err => console.log('An error occurred: ' + err.message))
-    .on('end' );
+    .on('end');
 };
 
 module.exports.exportV = cb => {

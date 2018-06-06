@@ -19,8 +19,6 @@ router.get('/video/:id', function (req, res, next) {
         console.log(videoId);
     });
 });
-    
-
 
 router.get('/clip',function(req, res, next){
 
@@ -34,12 +32,10 @@ router.get('/clip',function(req, res, next){
         path, st, et, speed, name, 
         data => res.send(data)
     );
-
 });
 
 router.get('/merge',function(req, res, next){
-    videoP.merge();
-    res.end();
+    videoP.merge(res.end());
 });
 
 router.post('/watermark', stream.uploadW.single('watermark'), function(req, res, next){
@@ -47,9 +43,9 @@ router.post('/watermark', stream.uploadW.single('watermark'), function(req, res,
     var file = req.file;
     console.log(file);    
     imageP.createWatermark(file.path);
-    res.end();
+    videoP.addWatermark(file.path);
+    
 });
-
 
 router.get('/export',function(req, res, next){
 
@@ -58,6 +54,8 @@ router.get('/export',function(req, res, next){
     res.sendFile('');
 });
 
-
+router.get('/log',function(req, res, next){
+    res.send(log);
+});
 
 module.exports = router;

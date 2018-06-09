@@ -5,6 +5,29 @@ block content
     // content
     .ui.container
         form 
+            h1 your video name
+            .input.ui
+                input.input.ui 
+                
             .field
-                label Short Text
+                label 
+                    |   description:
                 textarea(rows="2")
+            .inline.fields
+                label(for='fruit') Select your video tags:
+                .field
+                    .ui.radio.checkbox
+                    input.hidden(type='radio', name='fruit', checked='', tabindex='0')
+                    label Apples
+                .field
+                    .ui.radio.checkbox
+                    input.hidden(type='radio', name='fruit', tabindex='0')
+                    label Oranges
+                .field
+                    .ui.radio.checkbox
+                    input.hidden(type='radio', name='fruit', tabindex='0')
+                    label Pears
+                .field
+                    .ui.radio.checkbox
+                    input.hidden(type='radio', name='fruit', tabindex='0')
+                    label Grapefruit

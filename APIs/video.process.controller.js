@@ -8,14 +8,12 @@ var fse = require('fs-extra');
 var async = require('async');
 
 var imageP = require('./image.process.controller');
-const clipsName = [];
 
+const clipsName = [];
 const clipsDir = '/Users/zl/Desktop/OVE/public/workspace/clips/';
 const mergeDir = '/Users/zl/Desktop/OVE/public/workspace/merge/';
 const tempDir = '/Users/zl/Desktop/OVE/public/temp/';
 const exportDir = '/Users/zl/Desktop/OVE/public/workspace/export/';
-
-
 
 const command = input => {
 
@@ -31,7 +29,7 @@ const command = input => {
 module.exports.getInfo = path => {
 
     var input = path;
-    
+
     ffmpeg.getAvailableFilters(function (err, filters) {
         console.log("Available filters:");
         console.dir(filters);
@@ -47,28 +45,24 @@ module.exports.getInfo = path => {
 
 
 };
-module.exports.convert = function (req, res, next) {
+module.exports.convert = path => {
     
-    var inputVideo = "/Users/ZL/Desktop/OVE/public/existedVdieos/new.avi";
-
+    var inputVideo = path;
   
-        var command = ffmpeg(inputVideo)
+    var command = ffmpeg(inputVideo)
 
-        .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
-        .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
-        .on('error', err => console.log('An error occurred: ' + err.message))
-        .on('end', () => console.log('Processing finished !'))
+    .on("start", commandLine => console.log("Spawned ffmpeg with command:" + commandLine))
+    .on("progress", progress => console.log('progressing: ' + progress.percent + '% have been done'))
+    .on('error', err => console.log('An error occurred: ' + err.message))
+    .on('end', () => console.log('Processing finished !'))
 
-        .withVideoCodec('libvpx')
-        .addOptions(['-qmin 0', '-qmax 50', '-crf 5'])
-        .withVideoBitrate(1024)
-       
+    .withVideoCodec('libvpx')
+    .addOptions(['-qmin 0', '-qmax 50', '-crf 5'])
+    .withVideoBitrate(1024)
 
-        .save('/Users/ZL/Desktop/OVE/public/existedVdieos/webmvideo.webm');
-
-    
+    .save('/Users/ZL/Desktop/OVE/public/existedVdieos/webmvideo.webm');
 };
-module.exports.addWatermark =  watermark => {
+module.exports.addWatermark = watermark => {
 
     var inputV = mergeDir+'merge.mp4';
 
@@ -170,14 +164,12 @@ module.exports.merge = () => {
     .on('error', err => console.log('An error occurred: ' + err.message))
     .on('end');
 };
-
 module.exports.exportV = cb => {
     fse.emptyDir(clipsDir);
     fse.emptyDir(mergeDir);
     fse.emptyDir(watermarkDir);
     cb();
 };
-
 module.exports.isEmpty = () => {  
 
     var files1 = fse.readdirSync('/Users/zl/Desktop/OVE/public/workspace/clips/');

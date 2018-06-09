@@ -10,140 +10,75 @@ html(lang='en')
     link(href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800', rel='stylesheet', type='text/css')
     link(href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic', rel='stylesheet', type='text/css')
     link(rel='stylesheet', type='text/css', href='/stylesheets/index.css')
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous")
     
   body#page-top
     // Navigation
     nav#mainNav.navbar.navbar-expand-lg.navbar-light.fixed-top
       .container
-        a.navbar-brand.js-scroll-trigger(href='#page-top') Start Bootstrap
+        a.navbar-brand.js-scroll-trigger(href='#') Start OVE
         button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarResponsive', aria-controls='navbarResponsive', aria-expanded='false', aria-label='Toggle navigation')
           span.navbar-toggler-icon
         #navbarResponsive.collapse.navbar-collapse
           ul.navbar-nav.ml-auto
             li.nav-item
-              a.nav-link.js-scroll-trigger(href='#about') About
+              a.nav-link.js-scroll-trigger(href='/user/login') log in
             li.nav-item
-              a.nav-link.js-scroll-trigger(href='#services') Services
+              a.nav-link.js-scroll-trigger(href='/user/signup') sign up
             li.nav-item
-              a.nav-link.js-scroll-trigger(href='#portfolio') Portfolio
-            li.nav-item
-              a.nav-link.js-scroll-trigger(href='#contact') Contact
-    header.masthead.text-center.text-white.d-flex
+              a.nav-link.js-scroll-trigger(href='#email') Contact
+    //aheader.masthead.text-center.text-white.d-flex
       
     section#about.bg-primary
       .container
         .row
           .col-lg-8.mx-auto.text-center
-            h2.section-heading.text-white We've got what you need!
+            h2.section-heading.text-white We've got OVE that you need!
             hr.light.my-4
             p.text-faded.mb-4
-              | Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!
-            a.btn.btn-light.btn-xl.js-scroll-trigger(href='#services') Get Started!
+              | Start OVE has everything you need to get your project start up and editing in no time! All of the videos can be uploaded to OVE, make your own fancy moments, enjoy cloud editing services and fall in love with it from now on!
+            a.btn.btn-light.btn-xl.js-scroll-trigger(href='/user/login') Get Started!
     section#services
       .container
         .row
           .col-lg-12.text-center
-            h2.section-heading At Your Service
+            h2.section-heading Why Choose OVE ?
             hr.my-4
       .container
         .row
           .col-lg-3.col-md-6.text-center
             .service-box.mt-5.mx-auto
-              i.fa.fa-4x.fa-diamond.text-primary.mb-3.sr-icons
-              h3.mb-3 Sturdy Templates
-              p.text-muted.mb-0 Our templates are updated regularly so they don't break.
+              i.fa.fa-4x.fa-desktop.text-primary.mb-3.sr-icons.desktop
+              h3.mb-3 No desktop 
+              p.text-muted.mb-0 Our platform is web-based, powerful as ever.
           .col-lg-3.col-md-6.text-center
             .service-box.mt-5.mx-auto
               i.fa.fa-4x.fa-paper-plane.text-primary.mb-3.sr-icons
-              h3.mb-3 Ready to Ship
-              p.text-muted.mb-0 You can use this theme as is, or you can make changes!
+              h3.mb-3 Ready to go
+              p.text-muted.mb-0 You can use OVE as you like, just need an account!
           .col-lg-3.col-md-6.text-center
             .service-box.mt-5.mx-auto
               i.fa.fa-4x.fa-newspaper-o.text-primary.mb-3.sr-icons
-              h3.mb-3 Up to Date
-              p.text-muted.mb-0 We update dependencies to keep things fresh.
+              h3.mb-3 Easy to operate
+              p.text-muted.mb-0 We provide most easy operations to you.
           .col-lg-3.col-md-6.text-center
             .service-box.mt-5.mx-auto
               i.fa.fa-4x.fa-heart.text-primary.mb-3.sr-icons
               h3.mb-3 Made with Love
-              p.text-muted.mb-0 You have to make your websites with love these days!
-    section#portfolio.p-0
-      .container-fluid.p-0
-        .row.no-gutters.popup-gallery
-          .col-lg-4.col-sm-6
-            a.portfolio-box(href='img/portfolio/fullsize/1.jpg')
-              img.img-fluid(src='img/portfolio/thumbnails/1.jpg', alt='')
-              .portfolio-box-caption
-                .portfolio-box-caption-content
-                  .project-category.text-faded
-                    | Category
-                  .project-name
-                    | Project Name
-          .col-lg-4.col-sm-6
-            a.portfolio-box(href='img/portfolio/fullsize/2.jpg')
-              img.img-fluid(src='img/portfolio/thumbnails/2.jpg', alt='')
-              .portfolio-box-caption
-                .portfolio-box-caption-content
-                  .project-category.text-faded
-                    | Category
-                  .project-name
-                    | Project Name
-          .col-lg-4.col-sm-6
-            a.portfolio-box(href='img/portfolio/fullsize/3.jpg')
-              img.img-fluid(src='img/portfolio/thumbnails/3.jpg', alt='')
-              .portfolio-box-caption
-                .portfolio-box-caption-content
-                  .project-category.text-faded
-                    | Category
-                  .project-name
-                    | Project Name
-          .col-lg-4.col-sm-6
-            a.portfolio-box(href='img/portfolio/fullsize/4.jpg')
-              img.img-fluid(src='img/portfolio/thumbnails/4.jpg', alt='')
-              .portfolio-box-caption
-                .portfolio-box-caption-content
-                  .project-category.text-faded
-                    | Category
-                  .project-name
-                    | Project Name
-          .col-lg-4.col-sm-6
-            a.portfolio-box(href='img/portfolio/fullsize/5.jpg')
-              img.img-fluid(src='img/portfolio/thumbnails/5.jpg', alt='')
-              .portfolio-box-caption
-                .portfolio-box-caption-content
-                  .project-category.text-faded
-                    | Category
-                  .project-name
-                    | Project Name
-          .col-lg-4.col-sm-6
-            a.portfolio-box(href='img/portfolio/fullsize/6.jpg')
-              img.img-fluid(src='img/portfolio/thumbnails/6.jpg', alt='')
-              .portfolio-box-caption
-                .portfolio-box-caption-content
-                  .project-category.text-faded
-                    | Category
-                  .project-name
-                    | Project Name
+              p.text-muted.mb-0 We made this platform with love these days!
+  
+          
     section.bg-dark.text-white
       .container.text-center
-        h2.mb-4 Free Download at Start Bootstrap!
-        a.btn.btn-light.btn-xl.sr-button(href='http://startbootstrap.com/template-overviews/creative/') Download Now!
-    section#contact
-      .container
-        .row
-          .col-lg-8.mx-auto.text-center
-            h2.section-heading Let's Get In Touch!
-            hr.my-4
-            p.mb-5
-              | Ready to start your next project with us? That's great! Give us a call or send us an email and we will get back to you as soon as possible!
-        .row
-          .col-lg-4.ml-auto.text-center
-            i.fa.fa-phone.fa-3x.mb-3.sr-contact
-            p 123-456-6789
-          .col-lg-4.mr-auto.text-center
-            i.fa.fa-envelope-o.fa-3x.mb-3.sr-contact
-            p
-              a(href='mailto:your-email@your-domain.com') feedback@startbootstrap.com
+        h2.mb-4 Just Free Video Editing at OVE ! 
+        .footer-copyright.text-center.py-3
+        | © 2018 Copyright:
+        a(href='#')  zhili's capstone
+        .footer-copyright.text-center.py-3
+        | email address: 
+        a#email(href='https://mail.google.com/mail/') zl2613185@gmail.com
+        // Footer
+    
     // Bootstrap core JavaScript
     script(src='vendor/jquery/jquery.min.js')
     script(src='vendor/bootstrap/js/bootstrap.bundle.min.js')

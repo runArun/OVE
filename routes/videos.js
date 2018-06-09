@@ -29,6 +29,12 @@ router.get('/', function (req, res, next) {
         res.render('videos', { videos: videos, successMsg: successMsg, noMessages: !successMsg });
     });
 });
+router.get('/uploadV', function (req, res, next) {
+
+
+    res.render('videoUpload');
+    
+});
 
 router.post('/upload',stream.uploadV.single('video'), function(req, res, next){
     

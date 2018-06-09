@@ -20,21 +20,28 @@ block content
                         img(src= video.coverThumb)
                     .content
                         a.header #{video.title}
+                   
                         .meta
+                            
                             a #{video.createTime}
                         
                         .description
                             |   #{video.descriptions}
                         .extra
-                            .ui.right.floated.primary.button
+                            .ui.right.floated.button.success
                                 a(href='/workspace/video/'+video._id) Enter
                         each i in video.tags   
                             .ui.label  #{i}                          
-                
+
             br
             br
             br
         .row
+            button.ui.inverted.circular.segment
+                h3.ui.inverted.header
+                    | Upload New One
+                        
+        //.row
             button.ui.inverted.circular.segment
                 h3.ui.inverted.header
                     a#uploadV Upload New One
